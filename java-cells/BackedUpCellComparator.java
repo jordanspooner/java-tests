@@ -36,6 +36,7 @@ public class BackedUpCellComparator<U> implements Comparator<BackedUpCell<U>> {
       b.revertToPrevious();
       valueCompare = valueComparator.compare(a.get(), b.get());
       if (valueCompare != 0) {
+        reconstructCells(a, b, newerValues);
         return valueCompare;
       }
     }
@@ -45,11 +46,15 @@ public class BackedUpCellComparator<U> implements Comparator<BackedUpCell<U>> {
     if (b.hasBackup()) {
       return -1;
     }
+    reconstructCells(a, b, newerValues);
+    return 0;
+  }
+  
+  private void reconstructCells(BackedUpCell<U> a, BackedUpCell<U> b, Deque<U> newerValues) {
     while (!newerValues.isEmpty()) {
       b.set(newerValues.pop());
       a.set(newerValues.pop());
     }
-    return 0;
   }
 
 }
