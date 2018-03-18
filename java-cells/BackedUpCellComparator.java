@@ -2,7 +2,7 @@ import java.util.ArrayDeque;
 import java.util.Comparator;
 import java.util.Deque;
 
-public class BackedUpCellComparator<U> implements Comparator<BackedUpMutableCell<U>> {
+public class BackedUpCellComparator<U> implements Comparator<BackedUpCell<U>> {
 
   private final Comparator<U> valueComparator;
 
@@ -11,7 +11,7 @@ public class BackedUpCellComparator<U> implements Comparator<BackedUpMutableCell
   }
 
   @Override
-  public int compare(BackedUpMutableCell<U> a, BackedUpMutableCell<U> b) {
+  public int compare(BackedUpCell<U> a, BackedUpCell<U> b) {
     // Compare based on isSet
     if (a.isSet() && !b.isSet()) {
       return 1;
